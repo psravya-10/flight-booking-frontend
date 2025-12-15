@@ -1,1 +1,61 @@
-<p>search works!</p>
+<h3>Search Flights</h3>
+
+<form
+  *ngIf="flights.length === 0"
+  [formGroup]="searchForm"
+  (ngSubmit)="search()"
+>
+  <label>From</label><br />
+  <input formControlName="fromPlace" /><br /><br />
+
+  <label>To</label><br />
+  <input formControlName="toPlace" /><br /><br />
+
+  <label>Journey Date</label><br />
+  <input type="date" formControlName="journeyDate" /><br /><br />
+
+  <label>Trip Type</label><br />
+  <select formControlName="tripType">
+    <option value="ONE_WAY">One Way</option>
+    <option value="ROUND_TRIP">Round Trip</option>
+  </select><br /><br />
+
+  <button type="submit">Search</button>
+</form>
+
+<p style="color:red" *ngIf="errorMsg">{{ errorMsg }}</p>
+
+<div *ngIf="flights.length > 0">
+
+  <h4>Available Flights</h4>
+
+  <button (click)="newSearch()">🔙 New Search</button>
+  <br /><br />
+
+  <table border="1" cellpadding="6">
+    <thead>
+      <tr>
+        <th>Airline</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Departure</th>
+        <th>Arrival</th>
+        <th>Price</th>
+        <th>Seats</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let f of flights">
+        <td>{{ f.airlineName }}</td>
+        <td>{{ f.fromPlace }}</td>
+        <td>{{ f.toPlace }}</td>
+        <td>{{ f.departureTime }}</td>
+        <td>{{ f.arrivalTime }}</td>
+        <td>{{ f.priceOneWay }}</td>
+        <td>{{ f.availableSeats }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
