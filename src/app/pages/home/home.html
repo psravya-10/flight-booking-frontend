@@ -10,6 +10,14 @@
   <p>Welcome to Flight Booking Application</p>
 </div>
 
-<app-login *ngIf="activeView === 'login'"></app-login>
-<app-register *ngIf="activeView === 'register'"></app-register>
+<app-login
+  *ngIf="activeView === 'login'"
+  (loggedIn)="showSearch()">
+</app-login>
+
+<app-register
+  *ngIf="activeView === 'register'"
+  (registered)="showLogin()">
+</app-register>
+
 <app-search *ngIf="activeView === 'search'"></app-search>
