@@ -14,10 +14,16 @@ import { Search } from '../../flight/search/search';
     Register,
     Search
   ],
-  templateUrl: './home.html'
+  templateUrl: './home.html',
+  styleUrls: ['./home.css']
 })
 export class HomeComponent {
   activeView: 'home' | 'login' | 'register' | 'search' = 'home';
+
+  showHome() {
+  this.activeView = 'home';
+}
+
 
   showLogin() {
     this.activeView = 'login';
