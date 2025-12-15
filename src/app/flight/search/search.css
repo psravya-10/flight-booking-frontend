@@ -1,12 +1,84 @@
-input, select {
-  width: 220px;
+.section-title {
+  text-align: center;
+  margin-bottom: 25px;
 }
 
+.search-form {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  max-width: 1000px;
+  margin: 0 auto 30px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+  align-items: center;  
+}
+
+
+.form-row label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.form-row input,
+.form-row select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.btn-box {
+  display: flex;
+  justify-content: center;
+}
+
+
+.results-section {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.invisible-label {
+  visibility: hidden;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.btn-box button {
+  width: 100%;
+  height: 42px;
+}
+
+
 table {
+  width: 100%;
   border-collapse: collapse;
-  margin-top: 15px;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
 
 th {
-  background-color: #f2f2f2;
+  background: #ff8a65;
+  color: white;
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+  white-space: nowrap;
 }
