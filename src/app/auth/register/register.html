@@ -3,7 +3,7 @@
 <form [formGroup]="registerForm" (ngSubmit)="submit()">
 
   <div>
-    <label>Username</label><br />
+    <label>Username</label>
     <input type="text" formControlName="username" />
     <div class="error" *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.invalid">
       Username is required
@@ -13,7 +13,7 @@
   <br />
 
   <div>
-    <label>Email</label><br />
+    <label>Email</label>
     <input type="email" formControlName="email" />
     <div class="error" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
       Valid email is required
@@ -23,7 +23,7 @@
   <br />
 
   <div>
-    <label>Password</label><br />
+    <label>Password</label>
     <input type="password" formControlName="password" />
     <div class="error" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
       Password is required
@@ -33,7 +33,7 @@
   <br />
 
   <div>
-    <label>Role</label><br />
+    <label>Role</label>
     <select formControlName="role">
       <option value="USER">USER</option>
       <option value="ADMIN">ADMIN</option>

@@ -1,19 +1,62 @@
-input, select {
-  width: 250px;
-  padding: 6px;
+h3 {
+  text-align: center;
+  margin-bottom: 14px;
+  font-size: 22px;
 }
 
+form > div {
+  margin-bottom: 10px;   
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 3px;   
+}
+
+input,
+select {
+  width: 100%;
+  height: 40px;          
+  padding: 6px 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #ff8a65;
+}
+
+
 button {
-  padding: 6px 12px;
+  margin-top: 12px;     
+  width: 100%;
+  height: 42px;
+  background: #ff8a65;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
   cursor: pointer;
 }
 
+button:hover {
+  background: #f46b45;
+}
+
+
 .error {
-  color: red;
-  font-size: 13px;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #d93025;
 }
 
 .success {
-  color: green;
-  font-size: 14px;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #188038;
 }
