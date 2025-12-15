@@ -1,0 +1,15 @@
+<h2>Flight Booking</h2>
+
+<button (click)="showLogin()">Login</button>
+<button (click)="showRegister()">Register</button>
+<button (click)="showSearch()">Search Flights</button>
+
+<hr />
+
+<div *ngIf="activeView === 'home'">
+  <p>Welcome to Flight Booking Application</p>
+</div>
+
+<app-login *ngIf="activeView === 'login'"></app-login>
+<app-register *ngIf="activeView === 'register'"></app-register>
+<app-search *ngIf="activeView === 'search'"></app-search>
