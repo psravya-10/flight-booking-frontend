@@ -1,27 +1,39 @@
-<div class="app-container">
+<header class="top-bar">
+  <div class="logo" (click)="showHome()">
+    ✈ <span>Flight Booking</span>
+  </div>
 
-  <div class="app-title">✈️ Flight Booking</div>
-
-  <div class="nav-bar">
+  <nav class="nav-actions">
     <button (click)="showLogin()">Login</button>
     <button (click)="showRegister()">Register</button>
     <button (click)="showSearch()">Search Flights</button>
-  </div>
+  </nav>
+</header>
 
-  <div class="card" *ngIf="activeView === 'home'">
-    <p>Welcome to the Flight Booking Application.</p>
-  </div>
+<section *ngIf="activeView === 'home'" class="hero">
+  <div class="hero-content">
+    <h1>Book Flights Easily</h1>
+    <p>Search · Compare · Fly</p>
 
-  <div class="card" *ngIf="activeView === 'login'">
+    <button class="hero-btn" (click)="showSearch()">
+      Start Searching ✈
+    </button>
+  </div>
+</section>
+
+<section *ngIf="activeView === 'login'" class="page-center">
+  <div class="form-card">
     <app-login (loggedIn)="showSearch()"></app-login>
   </div>
+</section>
 
-  <div class="card" *ngIf="activeView === 'register'">
+<section *ngIf="activeView === 'register'" class="page-center">
+  <div class="form-card">
     <app-register (registered)="showLogin()"></app-register>
   </div>
+</section>
 
-  <div class="card" *ngIf="activeView === 'search'">
-    <app-search></app-search>
-  </div>
 
-</div>
+<section *ngIf="activeView === 'search'" class="page-center">
+  <app-search></app-search>
+</section>
