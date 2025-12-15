@@ -1,61 +1,55 @@
 <h3>Search Flights</h3>
+<br>
 
-<form
-  *ngIf="flights.length === 0"
-  [formGroup]="searchForm"
-  (ngSubmit)="search()"
->
-  <label>From</label><br />
-  <input formControlName="fromPlace" /><br /><br />
+<form *ngIf="flights.length === 0"
+      [formGroup]="searchForm"
+      (ngSubmit)="search()">
 
-  <label>To</label><br />
-  <input formControlName="toPlace" /><br /><br />
+  <label>From</label>
+  <input formControlName="fromPlace" />
 
-  <label>Journey Date</label><br />
-  <input type="date" formControlName="journeyDate" /><br /><br />
+  <label>To</label>
+  <input formControlName="toPlace" />
 
-  <label>Trip Type</label><br />
+  <label>Journey Date</label>
+  <input type="date" formControlName="journeyDate" />
+
+  <label>Trip Type</label>
   <select formControlName="tripType">
     <option value="ONE_WAY">One Way</option>
     <option value="ROUND_TRIP">Round Trip</option>
-  </select><br /><br />
-
-  <button type="submit">Search</button>
+  </select>
+<br>
+  <button class="btn-primary" type="submit">Search Flights</button>
 </form>
 
-<p style="color:red" *ngIf="errorMsg">{{ errorMsg }}</p>
+<p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
 
 <div *ngIf="flights.length > 0">
 
-  <h4>Available Flights</h4>
+  <h3>Available Flights</h3>
 
-  <button (click)="newSearch()">🔙 New Search</button>
-  <br /><br />
+  <button class="btn-secondary" (click)="newSearch()">🔙 New Search</button>
 
-  <table border="1" cellpadding="6">
-    <thead>
-      <tr>
-        <th>Airline</th>
-        <th>From</th>
-        <th>To</th>
-        <th>Departure</th>
-        <th>Arrival</th>
-        <th>Price</th>
-        <th>Seats</th>
-      </tr>
-    </thead>
+  <table>
+    <tr>
+      <th>Airline</th>
+      <th>From</th>
+      <th>To</th>
+      <th>Departure</th>
+      <th>Arrival</th>
+      <th>Price</th>
+      <th>Seats</th>
+    </tr>
 
-    <tbody>
-      <tr *ngFor="let f of flights">
-        <td>{{ f.airlineName }}</td>
-        <td>{{ f.fromPlace }}</td>
-        <td>{{ f.toPlace }}</td>
-        <td>{{ f.departureTime }}</td>
-        <td>{{ f.arrivalTime }}</td>
-        <td>{{ f.priceOneWay }}</td>
-        <td>{{ f.availableSeats }}</td>
-      </tr>
-    </tbody>
+    <tr *ngFor="let f of flights">
+      <td>{{ f.airlineName }}</td>
+      <td>{{ f.fromPlace }}</td>
+      <td>{{ f.toPlace }}</td>
+      <td>{{ f.departureTime }}</td>
+      <td>{{ f.arrivalTime }}</td>
+      <td>₹{{ f.priceOneWay }}</td>
+      <td>{{ f.availableSeats }}</td>
+    </tr>
   </table>
-
 </div>
