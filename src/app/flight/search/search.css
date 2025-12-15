@@ -1,0 +1,12 @@
+input, select {
+  width: 220px;
+}
+
+table {
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th {
+  background-color: #f2f2f2;
+}
