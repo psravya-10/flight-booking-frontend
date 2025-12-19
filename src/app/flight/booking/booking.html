@@ -1,0 +1,75 @@
+<form #bookingForm="ngForm" (ngSubmit)="submitBooking(bookingForm)">
+
+  <input type="text"
+         name="customerName"
+         [(ngModel)]="booking.customerName"
+         placeholder="Customer Name"
+         required />
+
+  <input type="email"
+         name="email"
+         [(ngModel)]="booking.email"
+         placeholder="Email"
+         required />
+
+  <input type="number"
+         name="numberOfSeats"
+         [(ngModel)]="booking.numberOfSeats"
+         (change)="updatePassengers()"
+         min="1"
+         required />
+
+  <input type="date"
+         name="journeyDate"
+         [(ngModel)]="booking.journeyDate"
+         required />
+
+  <input type="text"
+         name="seatNumbers"
+         [(ngModel)]="booking.seatNumbers"
+         placeholder="12A,12B"
+         required />
+
+  <select name="mealPreference"
+          [(ngModel)]="booking.mealPreference">
+    <option value="VEG">VEG</option>
+    <option value="NON_VEG">NON VEG</option>
+  </select>
+
+  <hr />
+
+  <h3>Passenger Details</h3>
+
+  <div *ngFor="let p of booking.passengers; let i = index">
+    <input type="text"
+           name="pname{{i}}"
+           [(ngModel)]="p.name"
+           placeholder="Passenger Name"
+           required />
+
+    <select name="pgender{{i}}"
+            [(ngModel)]="p.gender"
+            required>
+      <option value="">Select Gender</option>
+      <option value="M">Male</option>
+      <option value="F">Female</option>
+    </select>
+
+    <input type="number"
+           name="page{{i}}"
+           [(ngModel)]="p.age"
+           placeholder="Age"
+           required />
+  </div>
+
+  <button type="submit">Confirm Booking</button>
+
+</form>
+<p class="success" *ngIf="pnr">
+   Booking Confirmed <br />
+  <strong>PNR:</strong> {{ pnr }}
+</p>
+
+<p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
+
+
