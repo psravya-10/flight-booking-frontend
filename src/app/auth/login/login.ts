@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,8 @@ export class Login {
 
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
+  private router = inject(Router);
+
 
   successMsg = '';
   errorMsg = '';
@@ -37,11 +40,14 @@ submit() {
   };
 
   this.authService.login(payload).subscribe({
-    next: () => {
+    next: (data:any) => {
+      localStorage.setItem('token',data.token);
       this.successMsg = 'Login successful';
       this.errorMsg = '';
 
-      setTimeout(() => this.loggedIn.emit(), 800);
+      setTimeout(() => {
+        this.router.navigate(['/search']);
+      }, 800);
     },
     error: (err) => {
       this.errorMsg = err?.error?.message || 'Invalid email or password';

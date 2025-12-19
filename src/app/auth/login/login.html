@@ -1,26 +1,32 @@
-<h2>Login</h2>
+<div class="page-center">
+  <div class="form-card">
 
-<form [formGroup]="loginForm" (ngSubmit)="submit()">
+    <h2>Login</h2>
 
-  <label>Email</label>
-  <input type="email" formControlName="email" />
+    <form [formGroup]="loginForm" (ngSubmit)="submit()">
 
-  <div class="error"
-       *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
-    Valid email is required
+      <label>Email</label>
+      <input type="email" formControlName="email" />
+
+      <div class="error"
+           *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+        Valid email is required
+      </div>
+
+      <label>Password</label>
+      <input type="password" formControlName="password" />
+
+      <div class="error"
+           *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+        Password is required
+      </div>
+
+      <button type="submit">Login</button>
+
+    </form>
+
+    <p class="success" *ngIf="successMsg">{{ successMsg }}</p>
+    <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
+
   </div>
-
-  <label>Password</label>
-  <input type="password" formControlName="password" />
-
-  <div class="error"
-       *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
-    Password is required
-  </div>
-
-  <button type="submit">Login</button>
-
-</form>
-
-<p class="success" *ngIf="successMsg">{{ successMsg }}</p>
-<p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
+</div>

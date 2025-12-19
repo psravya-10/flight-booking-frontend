@@ -17,4 +17,12 @@ export class FlightService {
       payload
     );
   }
+bookFlight(flightId: string, payload: any) {
+  return this.http.post(
+    `${this.baseUrl}/api/booking/${flightId}`,
+    payload
+  );
 }
+
+}
+
