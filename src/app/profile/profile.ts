@@ -1,10 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { environment } from '../../environments/environment';
 
+import { Router } from '@angular/router';
+import { BookingService } from '../flight/booking/bookingservice';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +14,7 @@ import { environment } from '../../environments/environment';
 })
 export class Profile {
 
-  private http = inject(HttpClient);
+  private bookingService = inject(BookingService);
   private router = inject(Router);
 
   email = '';
@@ -23,23 +22,53 @@ export class Profile {
   errorMsg = '';
 
   ngOnInit() {
-    const storedEmail = localStorage.getItem('email');
+    const email = localStorage.getItem('email');
 
-    if (!storedEmail) {
+    if (!email) {
       this.router.navigate(['/login']);
       return;
     }
 
-    this.email = storedEmail;
-    this.loadBookingHistory();
+    this.email = email;
+    this.loadHistory();
   }
 
-  loadBookingHistory() {
-    this.http.get<any[]>(
-      `${environment.API_BASE_URL}/api/booking/history/${this.email}`
-    ).subscribe({
-      next: data => this.bookings = data,
-      error: () => this.errorMsg = 'Unable to load booking history'
+  loadHistory() {
+    this.bookingService.getHistory(this.email).subscribe({
+      next: (data) => {
+        this.bookings = data;
+      },
+      error: () => {
+        this.errorMsg = 'Failed to load booking history';
+      }
+    });
+  }
+  getStatus(b: any): string {
+    if (b.status === 'CANCELLED') {
+      return 'CANCELLED';
+    }
+
+    const today = new Date();
+    const journey = new Date(b.journeyDate);
+
+    if (journey < today) {
+      return 'COMPLETED';
+    }
+
+    return 'UPCOMING';
+  }
+  cancelBooking(pnr: string) {
+    if (!confirm('Cancel this booking?')) return;
+
+    this.bookingService.cancelBooking(pnr).subscribe({
+      next: () => {
+        alert('Booking cancelled');
+        this.loadHistory();
+
+      },
+      error: () => {
+        alert('Cancel failed');
+      }
     });
   }
 

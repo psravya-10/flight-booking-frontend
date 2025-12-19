@@ -12,19 +12,31 @@
 <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
 
 <table *ngIf="bookings.length > 0">
-  <tr>
-    <th>PNR</th>
-    <th>Date</th>
-    <th>Seats</th>
-    <th>Status</th>
+  <thead>
+    <tr>
+      <th>PNR</th>
+      <th>Date</th>
+      <th>Seats</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+
+  <tr *ngFor="let booking of bookings">
+    <td>{{ booking.pnr }}</td>
+    <td>{{ booking.journeyDate }}</td>
+    <td>{{ booking.numberOfSeats }}</td>
+    <td>{{ getStatus(booking) }}</td>
+    <td>
+      <button *ngIf="getStatus(booking) === 'UPCOMING'" (click)="cancelBooking(booking.pnr)">
+        Cancel
+      </button>
+    </td>
+
+
   </tr>
 
-  <tr *ngFor="let b of bookings">
-    <td>{{ b.pnr }}</td>
-    <td>{{ b.journeyDate }}</td>
-    <td>{{ b.numberOfSeats }}</td>
-    <td>{{ b.status }}</td>
-  </tr>
 </table>
 
 <p *ngIf="bookings.length === 0">
