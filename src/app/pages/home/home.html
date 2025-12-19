@@ -1,39 +1,11 @@
-<header class="top-bar">
-  <div class="logo" (click)="showHome()">
-    ✈ <span>Flight Booking</span>
-  </div>
-
-  <nav class="nav-actions">
-    <button (click)="showLogin()">Login</button>
-    <button (click)="showRegister()">Register</button>
-    <button (click)="showSearch()">Search Flights</button>
-  </nav>
-</header>
-
-<section *ngIf="activeView === 'home'" class="hero">
+<section class="hero">
   <div class="hero-content">
     <h1>Book Flights Easily</h1>
     <p>Search · Compare · Fly</p>
 
-    <button class="hero-btn" (click)="showSearch()">
-      Start Searching ✈
+    <button class="hero-btn" routerLink="/search">
+      Start Searching
     </button>
   </div>
 </section>
 
-<section *ngIf="activeView === 'login'" class="page-center">
-  <div class="form-card">
-    <app-login (loggedIn)="showSearch()"></app-login>
-  </div>
-</section>
-
-<section *ngIf="activeView === 'register'" class="page-center">
-  <div class="form-card">
-    <app-register (registered)="showLogin()"></app-register>
-  </div>
-</section>
-
-
-<section *ngIf="activeView === 'search'" class="page-center">
-  <app-search></app-search>
-</section>

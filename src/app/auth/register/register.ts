@@ -2,6 +2,8 @@ import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-register',
@@ -16,6 +18,7 @@ export class Register {
 
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
+  private router = inject(Router);
 
   successMsg = '';
   errorMsg = '';
@@ -46,7 +49,9 @@ export class Register {
         this.errorMsg = '';
         this.registerForm.reset({ role: 'USER' });
 
-        setTimeout(() => this.registered.emit(), 1000);
+        setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 800);
       },
       error: (err) => {
         this.errorMsg = err?.error?.message || 'Registration failed';
