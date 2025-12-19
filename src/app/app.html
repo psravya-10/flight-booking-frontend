@@ -4,11 +4,19 @@
   </div>
 
   <nav class="nav-actions">
-    <button routerLink="/login">Login</button>
-    <button routerLink="/register">Register</button>
-    <button routerLink="/search">Search Flights</button>
+    <button routerLink="/search">
+      Search Flights
+    </button>
+    <ng-container *ngIf="!isLoggedIn()">
+      <button routerLink="/login">Login</button>
+      <button routerLink="/register">Register</button>
+    </ng-container>
+    <ng-container *ngIf="isLoggedIn()">
+      <button routerLink="/profile">Profile</button>
+      <button (click)="logout()">Logout</button>
+    </ng-container>
+
   </nav>
 </header>
 
 <router-outlet></router-outlet>
-

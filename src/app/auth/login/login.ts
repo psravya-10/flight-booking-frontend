@@ -35,18 +35,21 @@ submit() {
   }
 
   const payload = {
-    email: this.loginForm.value.email,
-    password: this.loginForm.value.password
+    email: this.loginForm.value.email!,
+    password: this.loginForm.value.password!
   };
 
   this.authService.login(payload).subscribe({
-    next: (data:any) => {
-      localStorage.setItem('token',data.token);
+    next: (data: any) => {
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('email', payload.email);
+
       this.successMsg = 'Login successful';
       this.errorMsg = '';
 
       setTimeout(() => {
-        this.router.navigate(['/search']);
+        this.router.navigate(['/']);
+
       }, 800);
     },
     error: (err) => {
@@ -54,4 +57,5 @@ submit() {
       this.successMsg = '';
     }
   });
-}}
+}
+}
