@@ -28,11 +28,15 @@
     <td>{{ booking.journeyDate }}</td>
     <td>{{ booking.numberOfSeats }}</td>
     <td>{{ getStatus(booking) }}</td>
-    <td>
-      <button *ngIf="getStatus(booking) === 'UPCOMING'" (click)="cancelBooking(booking.pnr)">
-        Cancel
-      </button>
-    </td>
+
+<td>
+  <button
+    *ngIf="getStatus(booking) === 'UPCOMING'"
+    (click)="cancelBooking(booking.pnr)">
+    Cancel
+  </button>
+</td>
+
 
 
   </tr>

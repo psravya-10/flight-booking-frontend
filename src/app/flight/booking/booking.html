@@ -1,4 +1,6 @@
-<form #bookingForm="ngForm" (ngSubmit)="submitBooking(bookingForm)">
+<form *ngIf="!pnr"
+      #bookingForm="ngForm"
+      (ngSubmit)="submitBooking(bookingForm)">
 
   <input type="text"
          name="customerName"
@@ -62,14 +64,18 @@
            required />
   </div>
 
-  <button type="submit">Confirm Booking</button>
+  <button type="submit"
+          [disabled]="isBooking || bookingForm.invalid">
+    {{ isBooking ? 'Booking...' : 'Confirm Booking' }}
+  </button>
 
 </form>
+
+
 <p class="success" *ngIf="pnr">
    Booking Confirmed <br />
   <strong>PNR:</strong> {{ pnr }}
 </p>
 
+
 <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
-
-
