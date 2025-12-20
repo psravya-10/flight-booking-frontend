@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FlightService } from '../flight.service';
-
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-booking',
   standalone: true,
@@ -12,15 +12,17 @@ import { FlightService } from '../flight.service';
   styleUrls: ['./booking.css']
 })
 export class Booking {
-
+  constructor(
+    private cdr:ChangeDetectorRef
+  ){}
   private flightService = inject(FlightService);
   private route = inject(ActivatedRoute);
-  private router = inject(Router);
 
   flightId!: string;
 
-  successMsg = '';
   errorMsg = '';
+  pnr = '';
+  isBooking = false;   
 
   booking = {
     customerName: '',
@@ -35,11 +37,16 @@ export class Booking {
   };
 
   ngOnInit() {
-    this.flightId = this.route.snapshot.paramMap.get('flightId')!;
+    const id = this.route.snapshot.paramMap.get('flightId');
+    if (!id) {
+      this.errorMsg = 'Invalid flight selected';
+      return;
+    }
+    this.flightId = id;
   }
 
   updatePassengers() {
-    const count = this.booking.numberOfSeats;
+    const count = this.booking.numberOfSeats || 1;
     this.booking.passengers = Array.from({ length: count }, () => ({
       name: '',
       gender: '',
@@ -47,21 +54,29 @@ export class Booking {
     }));
   }
 
-  pnr="";
   submitBooking(form: any) {
-    if (form.invalid) return;
+  if (form.invalid || this.isBooking) return;
 
-    this.flightService
-      .bookFlight(this.flightId, this.booking)
-      .subscribe({
-        next: (response:any) => {
-          this.successMsg = 'Booking successful';
-          this.pnr = response.pnr; 
-          this.errorMsg = '';
-        },
-        error: () => {
-          this.errorMsg = 'Booking failed';
-        }
-      });
-  }
+  this.isBooking = true;
+  this.errorMsg = '';
+  this.pnr = '';
+
+  this.flightService
+    .bookFlight(this.flightId, this.booking)
+    .subscribe({
+      next: (res: any) => {
+        
+        this.pnr = res?.pnr || 'PNR_GENERATED';
+        this.isBooking = false;   
+        this.cdr.detectChanges();
+
+      },
+      error: (err) => {
+        console.error(err);
+        this.errorMsg = err?.error?.message || 'Booking failed';
+        this.isBooking = false;  
+      }
+    });
+}
+
 }

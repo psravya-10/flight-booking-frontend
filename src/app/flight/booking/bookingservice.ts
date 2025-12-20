@@ -20,6 +20,7 @@ export class BookingService {
   cancelBooking(pnr: string) {
     return this.http.delete(
       `${this.baseUrl}/api/booking/cancel/${pnr}`
+      
     );
   }
 }

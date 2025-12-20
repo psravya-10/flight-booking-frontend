@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { BookingService } from '../flight/booking/bookingservice';
 import { FormsModule } from '@angular/forms';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +14,9 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./profile.css']
 })
 export class Profile {
+   constructor(
+    private cdr:ChangeDetectorRef
+  ){}
 
   private bookingService = inject(BookingService);
   private router = inject(Router);
@@ -37,6 +41,7 @@ export class Profile {
     this.bookingService.getHistory(this.email).subscribe({
       next: (data) => {
         this.bookings = data;
+        this.cdr.detectChanges();
       },
       error: () => {
         this.errorMsg = 'Failed to load booking history';
@@ -44,33 +49,44 @@ export class Profile {
     });
   }
   getStatus(b: any): string {
-    if (b.status === 'CANCELLED') {
-      return 'CANCELLED';
-    }
+  if (b.cancelled === true) return 'CANCELLED';
 
-    const today = new Date();
-    const journey = new Date(b.journeyDate);
+  const today = new Date();
+  const journey = new Date(b.journeyDate);
 
-    if (journey < today) {
-      return 'COMPLETED';
-    }
+  return journey < today ? 'COMPLETED' : 'UPCOMING';
+}
 
-    return 'UPCOMING';
+
+markAsCancelled(pnr: string) {
+  const booking = this.bookings.find(b => b.pnr === pnr);
+  if (booking) {
+    booking.cancelled = true;
   }
-  cancelBooking(pnr: string) {
-    if (!confirm('Cancel this booking?')) return;
+}
 
-    this.bookingService.cancelBooking(pnr).subscribe({
-      next: () => {
-        alert('Booking cancelled');
-        this.loadHistory();
+cancelBooking(pnr: string) {
+  if (!confirm(`Cancel ticket ${pnr}?`)) return;
 
-      },
-      error: () => {
-        alert('Cancel failed');
+  this.bookingService.cancelBooking(pnr).subscribe({
+    next: () => {
+      
+      const booking = this.bookings.find(b => b.pnr === pnr);
+      if (booking) {
+        booking.cancelled = true;
       }
-    });
-  }
+    },
+    error: (err) => {
+      if (err?.error?.message?.toLowerCase().includes('already')) {
+        const booking = this.bookings.find(b => b.pnr === pnr);
+        if (booking) {
+          booking.cancelled = true;
+        }
+      }
+    }
+  });
+}
+
 
   logout() {
     localStorage.clear();
