@@ -11,7 +11,11 @@
       <button routerLink="/login">Login</button>
       <button routerLink="/register">Register</button>
     </ng-container>
+
     <ng-container *ngIf="isLoggedIn()">
+       <button *ngIf="isAdmin()" routerLink="/admin/add-flight">
+        Add Flights
+      </button>
       <button routerLink="/profile">Profile</button>
       <button (click)="logout()">Logout</button>
     </ng-container>

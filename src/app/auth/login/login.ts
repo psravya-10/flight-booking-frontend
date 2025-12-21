@@ -24,38 +24,42 @@ export class Login {
   errorMsg = '';
 
   loginForm = this.fb.group({
-  email: ['', [Validators.required, Validators.email]],
-  password: ['', Validators.required]
-});
-
-submit() {
-  if (this.loginForm.invalid) {
-    this.loginForm.markAllAsTouched();
-    return;
-  }
-
-  const payload = {
-    email: this.loginForm.value.email!,
-    password: this.loginForm.value.password!
-  };
-
-  this.authService.login(payload).subscribe({
-    next: (data: any) => {
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('email', payload.email);
-
-      this.successMsg = 'Login successful';
-      this.errorMsg = '';
-
-      setTimeout(() => {
-        this.router.navigate(['/']);
-
-      }, 800);
-    },
-    error: (err) => {
-      this.errorMsg = err?.error?.message || 'Invalid email or password';
-      this.successMsg = '';
-    }
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required]
   });
-}
+
+  submit() {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
+
+    const payload = {
+      email: this.loginForm.value.email!,
+      password: this.loginForm.value.password!
+    };
+
+    this.authService.login(payload).subscribe({
+      next: (data: any) => {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('email', data.email);
+        localStorage.setItem('role', data.roles[0]);
+        this.successMsg = 'Login successful';
+        this.errorMsg = '';
+
+        setTimeout(() => {
+          if (data.role === 'ADMIN') {
+            this.router.navigate(['/admin/add-flight']);
+          } else {
+            this.router.navigate(['/']);
+          }
+        }, 800);
+      },
+      error: (err) => {
+        this.errorMsg = err?.error?.message || 'Invalid email or password';
+        this.successMsg = '';
+      }
+    });
+
+  }
 }

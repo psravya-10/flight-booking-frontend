@@ -5,6 +5,8 @@ import { Register } from './auth/register/register';
 import { Search } from './flight/search/search';
 import { Booking } from './flight/booking/booking';
 import { Profile } from './profile/profile';
+import { AdminGuard } from './auth/admin.guard';
+import { AdminAddFlight } from './admin/add-flight/add-flight';
 
 
 export const routes: Routes = [
@@ -13,7 +15,8 @@ export const routes: Routes = [
   { path: 'register', component: Register },
   { path: 'profile', component: Profile },
   { path: 'search', component: Search },
-   { path: 'booking/:flightId', component: Booking },
+  { path: 'booking/:flightId', component: Booking },
+  {path: 'admin/add-flight',component: AdminAddFlight,canActivate: [AdminGuard]},
   { path: '**', redirectTo: '' }
 ];
 
