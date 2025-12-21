@@ -32,6 +32,6 @@ export class App {
 
   logout() { 
   localStorage.clear();
-  window.location.href = '/login';
+  this.router.navigate(['/login']);
   }
 }

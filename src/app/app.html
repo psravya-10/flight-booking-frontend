@@ -7,14 +7,15 @@
     <button routerLink="/search">
       Search Flights
     </button>
+
     <ng-container *ngIf="!isLoggedIn()">
       <button routerLink="/login">Login</button>
       <button routerLink="/register">Register</button>
     </ng-container>
 
     <ng-container *ngIf="isLoggedIn()">
-       <button (click)="goToAddFlight()">Add Flights</button>
-
+      <button routerLink="/my-bookings">My Bookings</button>
+      <button *ngIf="isAdmin()" (click)="goToAddFlight()">Add Flights</button>
       <button routerLink="/profile">Profile</button>
       <button (click)="logout()">Logout</button>
     </ng-container>
