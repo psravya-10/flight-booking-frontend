@@ -1,0 +1,46 @@
+<div class="page-center">
+  <div class="form-card">
+
+    <h2>Add Flight (Admin)</h2>
+
+    <form [formGroup]="flightForm" (ngSubmit)="submit()">
+
+      <label>Airline Name</label>
+      <input type="text" formControlName="airlineName" />
+
+      <label>Flight Number</label>
+      <input type="text" formControlName="flightNumber" />
+
+      <label>From</label>
+      <input type="text" formControlName="fromPlace" />
+
+      <label>To</label>
+      <input type="text" formControlName="toPlace" />
+
+      <label>Departure Time</label>
+      <input type="datetime-local" formControlName="departureTime" />
+
+      <label>Arrival Time</label>
+      <input type="datetime-local" formControlName="arrivalTime" />
+
+      <label>Price (One Way)</label>
+      <input type="number" formControlName="priceOneWay" />
+
+      <label>Total Seats</label>
+      <input type="number" formControlName="totalSeats" />
+
+      <label>Trip Type</label>
+      <select formControlName="tripType">
+        <option value="ONE_WAY">ONE WAY</option>
+        <option value="ROUND_TRIP">ROUND TRIP</option>
+      </select>
+
+      <button type="submit">Add Flight</button>
+
+    </form>
+
+    <p class="success" *ngIf="successMsg">{{ successMsg }}</p>
+    <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
+
+  </div>
+</div>
