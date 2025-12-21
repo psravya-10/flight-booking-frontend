@@ -54,7 +54,7 @@ export class AdminAddFlight {
 
         setTimeout(() => {
           this.router.navigate(['/']);
-        }, 800);
+        }, 8000);
       }},
       error: (err) => {
         console.log('ADD FLIGHT ERROR', err);

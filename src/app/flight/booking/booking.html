@@ -1,3 +1,5 @@
+<div class="page-center">
+  <div class="form-card wide">
 <form *ngIf="!pnr"
       #bookingForm="ngForm"
       (ngSubmit)="submitBooking(bookingForm)">
@@ -79,3 +81,5 @@
 
 
 <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
+  </div>
+   </div>

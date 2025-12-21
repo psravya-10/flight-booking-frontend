@@ -1,6 +1,9 @@
 <header class="top-bar">
+  <div class="left-group">
   <div class="logo" routerLink="/">
     Flight Booking
+  </div>
+  <button *ngIf="isAdmin()" class="admin-btn" (click)="goToAddFlight()">Add Flights</button>
   </div>
 
   <nav class="nav-actions">
@@ -15,7 +18,7 @@
 
     <ng-container *ngIf="isLoggedIn()">
       <button routerLink="/my-bookings">My Bookings</button>
-      <button *ngIf="isAdmin()" (click)="goToAddFlight()">Add Flights</button>
+      
       <button routerLink="/profile">Profile</button>
       <button (click)="logout()">Logout</button>
     </ng-container>

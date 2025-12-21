@@ -40,6 +40,7 @@ export class Booking {
       return;
     }
     this.flightId = id;
+   
   }
 
   updatePassengers() {

@@ -1,33 +1,37 @@
-<h3>Booking History</h3>
-<p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
+<div class="booking-container">
 
-<table *ngIf="bookings.length > 0">
-  <thead>
-    <tr>
-      <th>PNR</th>
-      <th>Date</th>
-      <th>Seats</th>
-      <th>Status</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tr *ngFor="let booking of bookings">
-    <td>{{ booking.pnr }}</td>
-    <td>{{ booking.journeyDate }}</td>
-    <td>{{ booking.numberOfSeats }}</td>
-    <td>{{ getStatus(booking) }}</td>
+  <h2>My Bookings</h2>
 
-<td>
-  <button
-    *ngIf="getStatus(booking) === 'UPCOMING'"
-    (click)="cancelBooking(booking.pnr)">
-    Cancel
-  </button>
-</td>
-  </tr>
+  <div class="booking-row" *ngFor="let b of bookings">
 
-</table>
+    <div class="flight-info">
+      <div class="airline">{{ b.airlineName }}</div>
+      <div class="route">{{ b.fromPlace }} → {{ b.toPlace }}</div>
+      <div class="time">
+        {{ b.departureTime | date:'shortTime' }} -
+        {{ b.arrivalTime | date:'shortTime' }}
+      </div>
+    </div>
 
-<p *ngIf="bookings.length === 0">
-  No bookings found
-</p>
+    <div class="details">
+      <div>PNR: <b>{{ b.pnr }}</b></div>
+      <div>Seats: {{ b.numberOfSeats }}</div>
+      <div>Meal: {{ b.mealPreference }}</div>
+      <div>Seats: {{ b.seatNumbers }}</div>
+    </div>
+
+    <div class="status">
+      <span [class.cancelled]="b.cancelled"
+            [class.active]="!b.cancelled">
+        {{ b.cancelled ? 'CANCELLED' : 'ACTIVE' }}
+      </span>
+
+      <button *ngIf="!b.cancelled"
+              (click)="cancelBooking(b.pnr)">
+        Cancel
+      </button>
+    </div>
+
+  </div>
+
+</div>

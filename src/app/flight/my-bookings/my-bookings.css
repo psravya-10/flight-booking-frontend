@@ -1,0 +1,63 @@
+.booking-container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 30px auto;
+}
+
+.booking-row {
+  display: grid;
+  grid-template-columns: 2fr 3fr 1.5fr;
+  gap: 20px;
+  background: white;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.flight-info .airline {
+  font-weight: 700;
+  color: #ff7a50;
+}
+
+.route {
+  font-size: 15px;
+  margin: 4px 0;
+}
+
+.time {
+  font-size: 13px;
+  color: #666;
+}
+
+.status {
+  text-align: right;
+}
+
+.status span {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.status .active {
+  background: #d4f8e8;
+  color: #188038;
+}
+
+.status .cancelled {
+  background: #fde2e2;
+  color: #d93025;
+}
+
+.status button {
+  background: #d93025;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 16px;
+  cursor: pointer;
+}

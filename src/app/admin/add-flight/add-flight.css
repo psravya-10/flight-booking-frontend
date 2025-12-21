@@ -1,10 +1,96 @@
-.success {
-  margin-top: 12px;
-  color: green;
+.page-center {
+  min-height: calc(100vh - 70px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f6f7fb;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 650px;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.form-card h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #ff7a45;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
   font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #ff7a45;
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+.primary-btn {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #ff7a45;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-btn:hover {
+  background: #ff6a2b;
+}
+
+.success {
+  margin-top: 1rem;
+  color: green;
+  text-align: center;
 }
 
 .error {
-  margin-top: 12px;
+  margin-top: 1rem;
   color: red;
+  text-align: center;
+}
+
+/* 📱 Mobile */
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width {
+    grid-column: span 1;
+  }
 }

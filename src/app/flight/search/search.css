@@ -11,6 +11,11 @@
   color: #ff7a50;
   text-align: center;
 }
+.form-card.wide {
+  width: 100%;
+  max-width: 900px;
+}
+
 
 table {
   width: 100%;

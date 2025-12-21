@@ -1,0 +1,15 @@
+.left-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.admin-btn {
+  background: #ff7a50;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 18px;
+  font-size: 13px;
+  cursor: pointer;
+}

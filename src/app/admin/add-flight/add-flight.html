@@ -1,46 +1,70 @@
 <div class="page-center">
   <div class="form-card">
 
-    <h2>Add Flight (Admin)</h2>
+    <h2>Add Flight</h2>
 
     <form [formGroup]="flightForm" (ngSubmit)="submit()">
 
-      <label>Airline Name</label>
-      <input type="text" formControlName="airlineName" />
+      <div class="form-grid">
 
-      <label>Flight Number</label>
-      <input type="text" formControlName="flightNumber" />
+        <div class="form-group">
+          <label>Airline Name</label>
+          <input type="text" formControlName="airlineName" />
+        </div>
 
-      <label>From</label>
-      <input type="text" formControlName="fromPlace" />
+        <div class="form-group">
+          <label>Flight Number</label>
+          <input type="text" formControlName="flightNumber" />
+        </div>
 
-      <label>To</label>
-      <input type="text" formControlName="toPlace" />
+        <div class="form-group">
+          <label>From</label>
+          <input type="text" formControlName="fromPlace" />
+        </div>
 
-      <label>Departure Time</label>
-      <input type="datetime-local" formControlName="departureTime" />
+        <div class="form-group">
+          <label>To</label>
+          <input type="text" formControlName="toPlace" />
+        </div>
 
-      <label>Arrival Time</label>
-      <input type="datetime-local" formControlName="arrivalTime" />
+        <div class="form-group">
+          <label>Departure Time</label>
+          <input type="datetime-local" formControlName="departureTime" />
+        </div>
 
-      <label>Price (One Way)</label>
-      <input type="number" formControlName="priceOneWay" />
+        <div class="form-group">
+          <label>Arrival Time</label>
+          <input type="datetime-local" formControlName="arrivalTime" />
+        </div>
 
-      <label>Total Seats</label>
-      <input type="number" formControlName="totalSeats" />
+        <div class="form-group">
+          <label>Price (One Way)</label>
+          <input type="number" formControlName="priceOneWay" />
+        </div>
 
-      <label>Trip Type</label>
-      <select formControlName="tripType">
-        <option value="ONE_WAY">ONE WAY</option>
-        <option value="ROUND_TRIP">ROUND TRIP</option>
-      </select>
+        <div class="form-group">
+          <label>Total Seats</label>
+          <input type="number" formControlName="totalSeats" />
+        </div>
 
-      <button type="submit">Add Flight</button>
+        <div class="form-group full-width">
+          <label>Trip Type</label>
+          <select formControlName="tripType">
+            <option value="ONE_WAY">ONE WAY</option>
+            <option value="ROUND_TRIP">ROUND TRIP</option>
+          </select>
+        </div>
+
+      </div>
+
+      <button type="submit" class="primary-btn">
+        Add Flight
+      </button>
+
+      <p class="success" *ngIf="successMsg">{{ successMsg }}</p>
+      <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
 
     </form>
-
-    <p class="success" *ngIf="successMsg">{{ successMsg }}</p>
-    <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
 
   </div>
 </div>

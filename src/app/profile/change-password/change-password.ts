@@ -38,6 +38,7 @@ export class ChangePassword {
   submit(): void {
     this.successMsg = '';
     this.errorMsg = '';
+    if (this.loading) return;
 
     if (this.passwordForm.invalid) {
       this.passwordForm.markAllAsTouched();
@@ -71,11 +72,13 @@ export class ChangePassword {
       error: (err) => {
         this.loading = false;
 
-        if (err?.error?.message) {
-          this.errorMsg = err.error.message;
-        } else {
-          this.errorMsg = 'Something went wrong. Please try again.';
-        }
+        if (err.status === 403) {
+        this.errorMsg = 'Current password is incorrect.';
+      } else if (err.status === 401) {
+        this.errorMsg = 'Session expired. Please login again.';
+      } else {
+        this.errorMsg = 'Something went wrong. Please try again.';
+      }
       }
     });
   }
