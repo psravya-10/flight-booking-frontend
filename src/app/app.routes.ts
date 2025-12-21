@@ -8,6 +8,7 @@ import { Profile } from './profile/profile';
 import { AdminGuard } from './auth/admin.guard';
 import { AdminAddFlight } from './admin/add-flight/add-flight';
 import { MyBookings } from './flight/my-bookings/my-bookings';
+import { ChangePassword } from './profile/change-password/change-password';
 
 
 export const routes: Routes = [
@@ -15,6 +16,10 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   { path: 'profile', component: Profile },
+  {
+  path: 'change-password',
+  component: ChangePassword
+},
   { path: 'my-bookings', component: MyBookings },
   { path: 'search', component: Search },
   { path: 'booking/:flightId', component: Booking },

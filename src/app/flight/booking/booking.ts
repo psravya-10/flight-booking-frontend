@@ -19,11 +19,9 @@ export class Booking {
   private route = inject(ActivatedRoute);
 
   flightId!: string;
-
   errorMsg = '';
   pnr = '';
   isBooking = false;   
-
   booking = {
     customerName: '',
     email: '',
@@ -35,7 +33,6 @@ export class Booking {
       { name: '', gender: '', age: null }
     ]
   };
-
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('flightId');
     if (!id) {
@@ -75,6 +72,7 @@ export class Booking {
         console.error(err);
         this.errorMsg = err?.error?.message || 'Booking failed';
         this.isBooking = false;  
+        this.cdr.detectChanges();
       }
     });
 }
