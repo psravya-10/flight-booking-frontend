@@ -9,7 +9,7 @@ export class AuthService {
 
   private baseUrl = environment.API_BASE_URL;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   register(data: any) {
     return this.http.post(
@@ -18,10 +18,27 @@ export class AuthService {
     );
   }
   login(data: any) {
-  return this.http.post(
-    `${this.baseUrl}/api/auth/login`,
-    data
-  );
-}
+    return this.http.post(
+      `${this.baseUrl}/api/auth/login`,
+      data
+    );
+  }
+  getRole(): string | null {
+    return localStorage.getItem('role');
+  }
+
+  isAdmin(): boolean {
+    return this.getRole() === 'ADMIN';
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  logout() {
+    localStorage.clear();
+  }
+
+
 
 }
