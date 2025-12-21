@@ -23,6 +23,12 @@ export class App {
   isAdmin(): boolean {
     return this.auth.isAdmin();
   }
+  goToAddFlight() {
+  if (this.router.url !== '/admin/add-flight') {
+    this.router.navigate(['/admin/add-flight']);
+  }
+}
+
 
   logout() { 
   localStorage.clear();

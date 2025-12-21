@@ -26,7 +26,11 @@ bookFlight(flightId: string, payload: any) {
 addFlight(payload: any) {
   return this.http.post(
     `${this.baseUrl}/api/flight/airline/inventory/add`,
-    payload
+    payload,{
+      responseType: 'text',   
+      observe: 'response'    
+    
+    }
   );
 }
 
