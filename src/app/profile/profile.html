@@ -3,46 +3,5 @@
 <div class="profile-card">
   <label>Email</label>
   <input [(ngModel)]="email" disabled />
-
-  <button (click)="logout()">Logout</button>
 </div>
 
-<h3>Booking History</h3>
-
-<p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
-
-<table *ngIf="bookings.length > 0">
-  <thead>
-    <tr>
-      <th>PNR</th>
-      <th>Date</th>
-      <th>Seats</th>
-      <th>Status</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-
-
-  <tr *ngFor="let booking of bookings">
-    <td>{{ booking.pnr }}</td>
-    <td>{{ booking.journeyDate }}</td>
-    <td>{{ booking.numberOfSeats }}</td>
-    <td>{{ getStatus(booking) }}</td>
-
-<td>
-  <button
-    *ngIf="getStatus(booking) === 'UPCOMING'"
-    (click)="cancelBooking(booking.pnr)">
-    Cancel
-  </button>
-</td>
-
-
-
-  </tr>
-
-</table>
-
-<p *ngIf="bookings.length === 0">
-  No bookings found
-</p>
