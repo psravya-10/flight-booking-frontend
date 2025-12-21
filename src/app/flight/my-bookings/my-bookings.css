@@ -11,7 +11,7 @@
   background: white;
   padding: 18px;
   border-radius: 14px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 25px rgba(245, 143, 10, 0.08);
   margin-bottom: 16px;
   align-items: center;
 }
@@ -45,16 +45,16 @@
 
 .status .active {
   background: #d4f8e8;
-  color: #188038;
+  color: #ff7a50;
 }
 
 .status .cancelled {
   background: #fde2e2;
-  color: #d93025;
+  color: #ff7a50;
 }
 
 .status button {
-  background: #d93025;
+  background: #ff7a50;
   color: white;
   border: none;
   padding: 6px 14px;
