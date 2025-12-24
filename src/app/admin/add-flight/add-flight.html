@@ -9,7 +9,13 @@
 
         <div class="form-group">
           <label>Airline Name</label>
-          <input type="text" formControlName="airlineName" />
+          <select formControlName="airlineName">
+            <option value="" disabled>Select Airline</option>
+            <option *ngFor="let airline of airlines" [value]="airline">
+              {{ airline }}
+            </option>
+          </select>
+
         </div>
 
         <div class="form-group">
@@ -19,12 +25,24 @@
 
         <div class="form-group">
           <label>From</label>
-          <input type="text" formControlName="fromPlace" />
+          <select formControlName="fromPlace">
+            <option value="" disabled>Select Source</option>
+            <option *ngFor="let city of cities" [value]="city">
+              {{ city }}
+            </option>
+          </select>
+
         </div>
 
         <div class="form-group">
           <label>To</label>
-          <input type="text" formControlName="toPlace" />
+          <select formControlName="toPlace">
+            <option value="" disabled>Select Destination</option>
+            <option *ngFor="let city of cities" [value]="city">
+              {{ city }}
+            </option>
+          </select>
+
         </div>
 
         <div class="form-group">
@@ -34,7 +52,7 @@
 
         <div class="form-group">
           <label>Arrival Time</label>
-          <input type="datetime-local" formControlName="arrivalTime"  [min]="minArrivalDateTime"/>
+          <input type="datetime-local" formControlName="arrivalTime" [min]="minArrivalDateTime" />
         </div>
 
         <div class="form-group">

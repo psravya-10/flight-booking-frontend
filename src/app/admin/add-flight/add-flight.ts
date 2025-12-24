@@ -11,9 +11,30 @@ import { ChangeDetectorRef } from '@angular/core';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './add-flight.html',
-  styleUrls: ['./add-flight.css']
+  styleUrls: ['./add-flight.css'],
 })
 export class AdminAddFlight {
+
+  airlines: string[] = [
+    'IndiGo',
+    'Air India',
+    'Vistara',
+    'Akasa Air',
+    'SpiceJet',
+    'Go First'
+  ];
+
+  cities: string[] = [
+    'Hyderabad',
+    'Delhi',
+    'Mumbai',
+    'Bangalore',
+    'Chennai',
+    'Kolkata',
+    'Pune',
+    'Ahmedabad'
+  ];
+
 
   private fb = inject(FormBuilder);
   private flightService = inject(FlightService);
@@ -36,33 +57,32 @@ export class AdminAddFlight {
     tripType: ['ONE_WAY', Validators.required]
   });
 
+
   minDepartureDateTime = '';
-minArrivalDateTime = '';
+  minArrivalDateTime = '';
 
-ngOnInit() {
-  this.setMinDepartureDateTime();
+  ngOnInit() {
+    this.setMinDepartureDateTime();
 
-  // Update arrival min when departure changes
-  this.flightForm.get('departureTime')?.valueChanges.subscribe(value => {
-    if (value) {
-      this.minArrivalDateTime = value;
-      this.flightForm.get('arrivalTime')?.reset();
-    }
-  });
-}
+    // Update arrival min when departure changes
+    this.flightForm.get('departureTime')?.valueChanges.subscribe(value => {
+      if (value) {
+        this.minArrivalDateTime = value;
+        this.flightForm.get('arrivalTime')?.reset();
+      }
+    });
+  }
 
-private setMinDepartureDateTime() {
-  const now = new Date();
+  private setMinDepartureDateTime() {
+    const now = new Date();
+    const yyyy = now.getFullYear();
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+    const hh = String(now.getHours()).padStart(2, '0');
+    const min = String(now.getMinutes()).padStart(2, '0');
 
-  const yyyy = now.getFullYear();
-  const mm = String(now.getMonth() + 1).padStart(2, '0');
-  const dd = String(now.getDate()).padStart(2, '0');
-  const hh = String(now.getHours()).padStart(2, '0');
-  const min = String(now.getMinutes()).padStart(2, '0');
-
-  this.minDepartureDateTime = `${yyyy}-${mm}-${dd}T${hh}:${min}`;
-}
-
+    this.minDepartureDateTime = `${yyyy}-${mm}-${dd}T${hh}:${min}`;
+  }
 
   submit() {
     if (this.flightForm.invalid) {
@@ -70,27 +90,33 @@ private setMinDepartureDateTime() {
       return;
     }
     const { departureTime, arrivalTime } = this.flightForm.value;
+    if (this.flightForm.value.fromPlace === this.flightForm.value.toPlace) {
+      this.errorMsg = 'From and To locations cannot be the same';
+      this.successMsg = '';
+      return;
+    }
 
-  if (new Date(arrivalTime!) <= new Date(departureTime!)) {
-    this.errorMsg = 'Arrival time must be after departure time';
-    this.successMsg = '';
-    return;
-  }
+    if (new Date(arrivalTime!) <= new Date(departureTime!)) {
+      this.errorMsg = 'Arrival time must be after departure time';
+      this.successMsg = '';
+      return;
+    }
 
     const payload = this.flightForm.value;
 
     this.flightService.addFlight(payload).subscribe({
       next: (response) => {
         console.log('ADD FLIGHT SUCCESS');
-       if (response.status === 200 || response.status === 201){ 
-        this.successMsg = 'Flight added successfully';
-        this.cdr.detectChanges();
-        this.errorMsg = '';
+        if (response.status === 200 || response.status === 201) {
+          this.successMsg = 'Flight added successfully';
+          this.cdr.detectChanges();
+          this.errorMsg = '';
 
-        setTimeout(() => {
-          this.router.navigate(['/']);
-        }, 3000);
-      }},
+          setTimeout(() => {
+            this.router.navigate(['/']);
+          }, 3000);
+        }
+      },
       error: (err) => {
         console.log('ADD FLIGHT ERROR', err);
         this.errorMsg = err?.error?.message || 'Failed to add flight';
