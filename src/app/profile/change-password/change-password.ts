@@ -62,11 +62,13 @@ export class ChangePassword {
     ).subscribe({
       next: () => {
         this.loading = false;
-        this.successMsg = 'Password changed successfully!';
+        this.successMsg = 'Password changed successfully!, please login again ';
         this.passwordForm.reset();
 
+        localStorage.clear();
+        sessionStorage.clear();
         setTimeout(() => {
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/login'], { replaceUrl: true });
         }, 3000);
       },
       error: (err) => {

@@ -16,10 +16,7 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   { path: 'profile', component: Profile },
-  {
-  path: 'change-password',
-  component: ChangePassword
-},
+  {path: 'change-password',component: ChangePassword},
   { path: 'my-bookings', component: MyBookings },
   { path: 'search', component: Search },
   { path: 'booking/:flightId', component: Booking },

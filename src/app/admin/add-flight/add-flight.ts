@@ -36,11 +36,46 @@ export class AdminAddFlight {
     tripType: ['ONE_WAY', Validators.required]
   });
 
+  minDepartureDateTime = '';
+minArrivalDateTime = '';
+
+ngOnInit() {
+  this.setMinDepartureDateTime();
+
+  // Update arrival min when departure changes
+  this.flightForm.get('departureTime')?.valueChanges.subscribe(value => {
+    if (value) {
+      this.minArrivalDateTime = value;
+      this.flightForm.get('arrivalTime')?.reset();
+    }
+  });
+}
+
+private setMinDepartureDateTime() {
+  const now = new Date();
+
+  const yyyy = now.getFullYear();
+  const mm = String(now.getMonth() + 1).padStart(2, '0');
+  const dd = String(now.getDate()).padStart(2, '0');
+  const hh = String(now.getHours()).padStart(2, '0');
+  const min = String(now.getMinutes()).padStart(2, '0');
+
+  this.minDepartureDateTime = `${yyyy}-${mm}-${dd}T${hh}:${min}`;
+}
+
+
   submit() {
     if (this.flightForm.invalid) {
       this.flightForm.markAllAsTouched();
       return;
     }
+    const { departureTime, arrivalTime } = this.flightForm.value;
+
+  if (new Date(arrivalTime!) <= new Date(departureTime!)) {
+    this.errorMsg = 'Arrival time must be after departure time';
+    this.successMsg = '';
+    return;
+  }
 
     const payload = this.flightForm.value;
 
@@ -54,7 +89,7 @@ export class AdminAddFlight {
 
         setTimeout(() => {
           this.router.navigate(['/']);
-        }, 8000);
+        }, 3000);
       }},
       error: (err) => {
         console.log('ADD FLIGHT ERROR', err);
