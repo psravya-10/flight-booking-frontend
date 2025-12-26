@@ -9,18 +9,19 @@ import { AdminGuard } from './auth/admin.guard';
 import { AdminAddFlight } from './admin/add-flight/add-flight';
 import { MyBookings } from './flight/my-bookings/my-bookings';
 import { ChangePassword } from './profile/change-password/change-password';
+import { PasswordExpiryGuard } from './auth/password-expiry.guard';
 
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'login', component: Login },
-  { path: 'register', component: Register },
-  { path: 'profile', component: Profile },
+  { path: '', component: HomeComponent ,canActivate: [PasswordExpiryGuard]},
+  { path: 'login', component: Login ,canActivate: [PasswordExpiryGuard]},
+  { path: 'register', component: Register ,canActivate: [PasswordExpiryGuard]},
+  { path: 'profile', component: Profile ,canActivate: [PasswordExpiryGuard]},
   {path: 'change-password',component: ChangePassword},
-  { path: 'my-bookings', component: MyBookings },
-  { path: 'search', component: Search },
-  { path: 'booking/:flightId', component: Booking },
-  {path: 'admin/add-flight',component: AdminAddFlight,canActivate: [AdminGuard]},
+  { path: 'my-bookings', component: MyBookings ,canActivate: [PasswordExpiryGuard]},
+  { path: 'search', component: Search ,canActivate: [PasswordExpiryGuard]},
+  { path: 'booking/:flightId', component: Booking,canActivate: [PasswordExpiryGuard] },
+  {path: 'admin/add-flight',component: AdminAddFlight,canActivate: [AdminGuard, PasswordExpiryGuard]},
   { path: '**', redirectTo: '' }
 ];
 

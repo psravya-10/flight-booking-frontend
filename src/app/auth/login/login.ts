@@ -44,8 +44,18 @@ export class Login {
         localStorage.setItem('token', data.token);
         localStorage.setItem('email', data.email);
         localStorage.setItem('role', data.roles[0]);
+        localStorage.setItem('passwordExpired', String(data.passwordExpired));
         this.successMsg = 'Login successful';
         this.errorMsg = '';
+
+        if (data.passwordExpired) {
+          localStorage.setItem(
+    'passwordMessage',
+    'Your password has expired. Please change it to continue.'
+  );
+    this.router.navigate(['/change-password']);
+    return;
+  }
 
         setTimeout(() => {
           if (data.role === 'ADMIN') {

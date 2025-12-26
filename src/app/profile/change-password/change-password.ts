@@ -34,6 +34,21 @@ export class ChangePassword {
     ],
     confirmPassword: ['', Validators.required]
   });
+  showPopup = false;
+popupMessage = '';
+ngOnInit() {
+  const msg = localStorage.getItem('passwordMessage');
+  if (msg) {
+    this.popupMessage = msg;
+    this.showPopup = true;
+    localStorage.removeItem('passwordMessage');
+  }
+}
+
+closePopup() {
+  this.showPopup = false;
+}
+
 
   submit(): void {
     this.successMsg = '';
