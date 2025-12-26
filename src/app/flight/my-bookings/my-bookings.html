@@ -11,13 +11,15 @@
         {{ b.departureTime | date:'shortTime' }} -
         {{ b.arrivalTime | date:'shortTime' }}
       </div>
+      <p>Date:{{ b.journeyDate | date:'dd MMM yyyy' }}</p>
+
     </div>
 
     <div class="details">
       <div>PNR: <b>{{ b.pnr }}</b></div>
       <div>Seats: {{ b.numberOfSeats }}</div>
       <div>Meal: {{ b.mealPreference }}</div>
-      <div>Seats: {{ b.seatNumbers }}</div>
+      <div>Seats No: {{ b.seatNumbers }}</div>
     </div>
 
     <div class="status">

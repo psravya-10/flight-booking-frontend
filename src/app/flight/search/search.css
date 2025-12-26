@@ -42,5 +42,32 @@ th, td {
   margin-left: auto;
   margin-right: auto;
 }
+.autocomplete {
+  position: relative;
+}
+
+.autocomplete ul {
+  position: absolute;
+  width: 100%;
+  background: white;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ddd;
+  max-height: 180px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.autocomplete li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.autocomplete li:hover {
+  background: #ff7a50;
+  color: white;
+}
+
 
 

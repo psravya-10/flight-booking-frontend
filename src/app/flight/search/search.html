@@ -8,24 +8,56 @@
   (ngSubmit)="search()"
   class="search-box"
 >
-  <div>
-    <label>From</label>
-    <input type="text" formControlName="from" />
-    <div class="error" *ngIf="searchForm.get('from')?.touched && searchForm.get('from')?.invalid">
-      From location is required
-    </div>
+
+  <div class="autocomplete">
+  <label>From</label>
+  <input
+    type="text"
+    formControlName="from"
+    (input)="filterFromCities(searchForm.value.from || '')"
+    (focus)="showFromList = true"
+  />
+
+  <ul *ngIf="showFromList && filteredFromCities.length">
+    <li
+      *ngFor="let city of filteredFromCities"
+      (click)="selectFromCity(city)">
+      {{ city }}
+    </li>
+  </ul>
+
+  <div class="error" *ngIf="searchForm.get('from')?.touched && searchForm.get('from')?.invalid">
+    From location is required
   </div>
+</div>
+
+
+  <div class="autocomplete">
+  <label>To</label>
+  <input
+    type="text"
+    formControlName="to"
+    (input)="filterToCities(searchForm.value.to || '')"
+    (focus)="showToList = true"
+  />
+
+  <ul *ngIf="showToList && filteredToCities.length">
+    <li
+      *ngFor="let city of filteredToCities"
+      (click)="selectToCity(city)">
+      {{ city }}
+    </li>
+  </ul>
+
+  <div class="error" *ngIf="searchForm.get('to')?.touched && searchForm.get('to')?.invalid">
+    To location is required
+  </div>
+</div>
+
 
   <div>
-    <label>To</label>
-    <input type="text" formControlName="to" />
-    <div class="error" *ngIf="searchForm.get('to')?.touched && searchForm.get('to')?.invalid">
-      To location is required
-    </div>
-  </div>
-  <div>
     <label>Journey Date</label>
-    <input type="date" formControlName="journeyDate" />
+    <input type="date" formControlName="journeyDate"  [min]="today"/>
     <div class="error" *ngIf="searchForm.get('journeyDate')?.touched && searchForm.get('journeyDate')?.invalid">
       Journey date is required
     </div>
@@ -45,6 +77,8 @@
 </form>
 <div *ngIf="showResults">
 
+
+  
   <h3 class="section-title">Available Flights</h3>
 
   <div class="btn-box">
@@ -74,7 +108,7 @@
         <td>{{ flight.availableSeats }}</td>
         <td>
         <button class="btn-primary"
-                (click)="goToBooking(flight.flightId)">
+                (click)="goToBooking(flight)">
           Book
         </button>
       </td>

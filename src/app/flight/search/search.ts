@@ -30,6 +30,50 @@ export class Search {
     tripType: ['', Validators.required]
   });
 
+  cities: string[] = [
+  'Hyderabad',
+  'Bangalore',
+  'Chennai',
+  'Delhi',
+  'Mumbai',
+  'Kolkata',
+  'Pune',
+  'Goa',
+  'Ahmedabad'
+];
+
+filteredFromCities: string[] = [];
+filteredToCities: string[] = [];
+
+showFromList = false;
+showToList = false;
+filterFromCities(value: string) {
+  this.filteredFromCities = this.cities.filter(city =>
+    city.toLowerCase().includes(value.toLowerCase())
+  );
+  this.showFromList = true;
+}
+
+filterToCities(value: string) {
+  this.filteredToCities = this.cities.filter(city =>
+    city.toLowerCase().includes(value.toLowerCase())
+  );
+  this.showToList = true;
+}
+
+selectFromCity(city: string) {
+  this.searchForm.patchValue({ from: city });
+  this.showFromList = false;
+}
+
+selectToCity(city: string) {
+  this.searchForm.patchValue({ to: city });
+  this.showToList = false;
+}
+today = new Date().toISOString().split('T')[0];
+
+
+
   search() {
     this.errorMsg = '';
     this.noFlightsMsg = '';
@@ -69,9 +113,19 @@ export class Search {
   this.errorMsg = '';
   this.searchForm.reset();
 }
- goToBooking(flightId: string) {
-    this.router.navigate(['/booking', flightId]);
-  }
+
+
+ goToBooking(flight: any) {
+  this.router.navigate(
+    ['/booking', flight.flightId],
+    {
+      state: {
+        totalSeats: flight.totalSeats
+      }
+    }
+  );
+}
+
 
 
 }

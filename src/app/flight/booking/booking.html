@@ -28,12 +28,6 @@
          [(ngModel)]="booking.journeyDate"
          required />
 
-  <input type="text"
-         name="seatNumbers"
-         [(ngModel)]="booking.seatNumbers"
-         placeholder="12A,12B"
-         required />
-
   <select name="mealPreference"
           [(ngModel)]="booking.mealPreference">
     <option value="VEG">VEG</option>
@@ -45,6 +39,7 @@
   <h3>Passenger Details</h3>
 
   <div *ngFor="let p of booking.passengers; let i = index">
+       <h3>passenger info</h3>
     <input type="text"
            name="pname{{i}}"
            [(ngModel)]="p.name"
@@ -65,20 +60,44 @@
            placeholder="Age"
            required />
   </div>
+<h3>Select Seats</h3>
+<div class="legend">
+  <span class="available"></span> Available
+  <span class="selected"></span> Selected
+  <span class="booked"></span> Booked
+</div>
 
-  <button type="submit"
-          [disabled]="isBooking || bookingForm.invalid">
-    {{ isBooking ? 'Booking...' : 'Confirm Booking' }}
+<div class="seat-grid">
+  <button
+    type="button"
+    *ngFor="let seat of allSeats"
+    class="seat"
+    [class.booked]="bookedSeats.includes(seat)"
+    [class.selected]="selectedSeats.includes(seat)"
+    [disabled]="bookedSeats.includes(seat)"
+    (click)="toggleSeat(seat)">
+    {{ seat }}
   </button>
+</div>
 
+<p class="seat-info">
+  Selected {{ selectedSeats.length }} / {{ booking.numberOfSeats }} seats
+</p>
+  <button
+  type="submit"
+  [disabled]="
+    bookingForm.invalid ||
+    selectedSeats.length !== booking.numberOfSeats ||
+    isBooking
+  ">
+  {{ isBooking ? 'Booking...' : 'Confirm Booking' }}
+</button>
 </form>
-
 
 <p class="success" *ngIf="pnr">
    Booking Confirmed <br />
   <strong>PNR:</strong> {{ pnr }}
 </p>
-
 
 <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
   </div>

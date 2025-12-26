@@ -12,9 +12,9 @@ import { Router } from '@angular/router';
 })
 export class MyBookings {
   constructor(
-    private cdr:ChangeDetectorRef
-  ){}
-   private bookingService = inject(BookingService);
+    private cdr: ChangeDetectorRef
+  ) { }
+  private bookingService = inject(BookingService);
   private router = inject(Router);
   email = '';
   bookings: any[] = [];
@@ -40,42 +40,42 @@ export class MyBookings {
     });
   }
   getStatus(b: any): string {
-  if (b.cancelled === true) return 'CANCELLED';
+    if (b.cancelled === true) return 'CANCELLED';
 
-  const today = new Date();
-  const journey = new Date(b.journeyDate);
+    const today = new Date();
+    const journey = new Date(b.journeyDate);
 
-  return journey < today ? 'COMPLETED' : 'UPCOMING';
-}
-
-
-markAsCancelled(pnr: string) {
-  const booking = this.bookings.find(b => b.pnr === pnr);
-  if (booking) {
-    booking.cancelled = true;
+    return journey < today ? 'COMPLETED' : 'UPCOMING';
   }
-}
 
-cancelBooking(pnr: string) {
-  if (!confirm(`Cancel ticket ${pnr}?`)) return;
 
-  this.bookingService.cancelBooking(pnr).subscribe({
-    next: () => {
-      
-      const booking = this.bookings.find(b => b.pnr === pnr);
-      if (booking) {
-        booking.cancelled = true;
-      }
-    },
-    error: (err) => {
-      if (err?.error?.message?.toLowerCase().includes('already')) {
+  markAsCancelled(pnr: string) {
+    const booking = this.bookings.find(b => b.pnr === pnr);
+    if (booking) {
+      booking.cancelled = true;
+    }
+  }
+
+  cancelBooking(pnr: string) {
+    if (!confirm(`Cancel ticket ${pnr}?`)) return;
+
+    this.bookingService.cancelBooking(pnr).subscribe({
+      next: () => {
+
         const booking = this.bookings.find(b => b.pnr === pnr);
         if (booking) {
           booking.cancelled = true;
         }
+      },
+      error: (err) => {
+        if (err?.error?.message?.toLowerCase().includes('already')) {
+          const booking = this.bookings.find(b => b.pnr === pnr);
+          if (booking) {
+            booking.cancelled = true;
+          }
+        }
       }
-    }
-  });
-}
+    });
+  }
 
 }

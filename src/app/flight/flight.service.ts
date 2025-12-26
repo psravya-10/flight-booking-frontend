@@ -33,6 +33,13 @@ addFlight(payload: any) {
     }
   );
 }
+// to get booked seats
+getBookedSeats(flightId: string) {
+  return this.http.get<string[]>(
+    `${this.baseUrl}/api/booking/seats/${flightId}`
+  );
+}
+
 
 
 }
